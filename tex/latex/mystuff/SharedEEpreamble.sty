@@ -1,0 +1,290 @@
+\ProvidesPackage{SharedEEpreamble}
+
+%% Default font for document
+\RequirePackage{kpfonts}
+%% Code font
+\RequirePackage{inconsolata}
+% % %
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[danish]{babel} % NOTICE might not compile if danish language pack is not installed
+\RequirePackage{graphicx}
+\RequirePackage{import}
+
+
+\ifCLASSOPTIONcompsoc
+	\RequirePackage[caption=false, font=normalsize, labelfont=sf, textfont=sf]{subfig}
+\else
+	\RequirePackage[caption=false, font=footnotesize]{subfig}
+\fi
+
+%% Lets include code
+\RequirePackage{listings}
+\RequirePackage{lstautodedent}
+
+%% Colors
+\RequirePackage{color}
+\RequirePackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcol}{RGB}{205,217,232}
+\definecolor{aublue}{RGB}{3,66,142}
+\definecolor{aubluelight}{RGB}{129,160,198}
+\definecolor{blaa}{RGB}{1,99,172}   %Faber Castell Blå
+\definecolor{roed}{RGB}{179,41,54}  %Faber Castell Rød
+\definecolor{groen}{RGB}{25,90,34}  %Faber Castell Grøn
+\definecolor{brickred}{rgb}{0.8, 0.25, 0.33}
+%% Create nice tables
+\RequirePackage{booktabs}
+%% Better table spacing
+\renewcommand{\arraystretch}{1.3}
+
+%% Enables blindtext for testing formats
+\RequirePackage{blindtext}
+
+%% Acronym package
+\RequirePackage[footnote,smaller]{acronym}
+
+
+%%% TIKZ & CIRCUITIKZ %%%%
+\RequirePackage{tikz}
+\usetikzlibrary{arrows}
+\RequirePackage[%
+	siunitx,
+	EFvoltages,
+	europeanvoltages,
+	europeancurrents,
+	cuteinductors,
+	betterproportions
+]{circuitikz}
+
+%% Enable some tikz parameters
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.16}
+
+%% Enable floats
+\RequirePackage{float}
+
+\interdisplaylinepenalty=2500
+
+%%%%%%%%%%%%%%%%%
+%% Math packages!
+%%%%%%%%%%%%%%%%%
+\RequirePackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+%%
+\RequirePackage{cancel}
+%% \diff{}{} and \dl package!
+\RequirePackage[ISO]{diffcoeff}
+%  enables \phase{} for complex values 
+\RequirePackage{steinmetz}
+\RequirePackage{cases}
+
+
+%%%%% Nice squareroot
+\RequirePackage{letltxmacro}
+\makeatletter
+\let\oldr@@t\r@@t
+\def\r@@t#1#2{%
+	\setbox0=\hbox{$\oldr@@t#1{#2\,}$}\dimen0=\ht0
+	\advance\dimen0-0.2\ht0
+	\setbox2=\hbox{\vrule height\ht0 depth -\dimen0}%
+	{\box0\lower0.4pt\box2}}
+\LetLtxMacro{\oldsqrt}{\sqrt}
+\renewcommand*{\sqrt}[2][\ ]{\oldsqrt[#1]{#2}}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%
+
+%%% Math operators - linked to Live Snippets...%%%
+\DeclareMathOperator\Arg{Arg}
+\DeclareMathOperator\imO{Im}
+\DeclareMathOperator\reO{Re}
+\newcommand*{\re}[1]{\reO\left\{#1\right\}}
+\newcommand*{\im}[1]{\imO\left\{#1\right\}}
+\newcommand*{\lap}[1]{\mathcal{L}\left\{#1\right\}}
+\newcommand*{\ilap}[1]{\mathcal{L}^{-1}\left\{#1\right\}}
+\newcommand*{\E}[1]{\mathrm{\mathbf{e}}^{#1}}
+\newcommand*{\J}{\mathbf{j}}
+\newcommand{\Foo}{\texttt{[Foo]}}
+
+%% Easy SI
+\newcommand*{\fdb}{\ensuremath{f_{3db}}\;}
+\newcommand*{\rads}{\si{\radian\per\second}\;}
+\newcommand*{\kHz}{\;\si{\kilo\hertz}\;}
+\newcommand*{\kohm}{\;\si{\kilo\ohm}\;}
+
+%% Vector
+\newcommand{\vv}[1]{\ensuremath{\vec{\mathbf{#1}}}}
+\newcommand*{\summ}[3]{\sum_{#1}^{#2}\left[ #3 \right]}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\RequirePackage{hyperref}
+\hypersetup{
+	colorlinks,
+	linkcolor={roed!20!black},
+	citecolor={blaa!30!black},
+	urlcolor={blaa!80!black}
+}
+\RequirePackage{siunitx}
+\sisetup{range-phrase = {\text{~til~}}}
+\RequirePackage{lipsum}
+
+%% Emphasize equation...
+\newcommand*{\boxedcolor}{roed}
+\makeatletter
+\renewcommand{\boxed}[1]{\textcolor{blaa}{%
+		\fbox{\normalcolor\m@th$\color{\boxedcolor}\displaystyle#1$}}}
+\makeatother
+
+
+% Figure, table and source code style and macros
+% you can override these, also in text, like \def\dirfigs{MyDiretory\}
+
+\def\dirfigs{figs/}
+\def\dirsrc{./}
+
+% NOTE: do not use underscores in filename, will mess up fig label
+\newcommand\schref[1]{figur \ref{sch:#1}}
+\newcommand\figref[1]{figur \ref{fig:#1}}
+\newcommand\figrefp[1]{figur \ref{fig:#1}, s.~\pageref{fig:#1}}
+\newcommand\Figref[1]{Figur \ref{fig:#1}}
+\newcommand\tabref[1]{tabel \ref{tab:#1}}
+\newcommand\tabrefp[1]{tabel \ref{tab:#1}, s.~\pageref{tab:#1}}
+\newcommand\Tabref[1]{Tabel \ref{tab:#1}}
+\newcommand\srcref[1]{source code table \ref{src:#1}}
+\newcommand\Srcref[1]{Source code table \ref{src:#1}}
+
+\newcommand\coderef[2][src]{source code listing \ref{#1:#2}}
+\newcommand\Coderef[2][src]{Source code listing \ref{#1:#2}}
+\newcommand\coderefsimple[2][src]{\ref{#1:#2}}
+
+\RequirePackage{array}
+\newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
+
+
+\newcommand\figbase[3]{
+	\begin{figure}[!htp]
+		\centering
+		#1
+		\caption{#3}
+		\label{fig:#2}
+	\end{figure}
+}
+% #1 Filename
+% #2 Figure width
+% #3 Caption
+\newcommand\tikzfig[2]{
+	\figbase{\input{\dirfigs#1}}{#1}{#2}
+}
+% #1 Filename
+% #2 Figure width
+% #3 Caption
+\newcommand\fig[3]{
+	\figbase{\includegraphics[width=#2\linewidth]{\dirfigs#1}}{#1}{#3}
+}
+% #1 .tex file and label
+% #2 Caption
+\newcommand\schem[2]{
+	\begin{figure}
+		\centering
+		\input{\dirfigs#1}
+		\caption{#2}
+		\label{sch:#1}
+	\end{figure}
+}
+% #1 Filename
+% #2 Caption
+\newcommand\src[2]{
+	\begin{table}[H]
+		\centering
+		\framebox{
+			\rule{8pt}{0pt}
+			\lstinputlisting{\dirsrc#1}
+		}
+		\caption{#2}
+		\label{src:#1}
+	\end{table}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% One column variants
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% #1 Filename
+% #2 Figure width
+% #3 Caption
+\newcommand\figbaseOC[3]{
+	\begin{figure*}
+		\centering
+		#1
+		\caption{#3}
+		\label{fig:#2}
+	\end{figure*}
+}
+% #1 Filename
+% #2 Figure width
+% #3 Caption
+\newcommand\figOC[3]{
+	\figbaseOC{\includegraphics[width=#2\linewidth]{\dirfigs#1}}{#1}{#3}
+}
+% #1 Filename
+% #2 Caption
+\newcommand\tabOC[3]{
+	\begin{table*}[!ht]
+		\caption{#2}
+		\label{tab:#3}
+		\renewcommand{\arraystretch}{1.3}
+		\centering
+		#1
+	\end{table*}
+}
+\newcommand\includecode[4][src]{
+	\lstinputlisting[
+		label={#1:#2},
+		caption={#3},
+		#4,
+	]{\dirsrc#2}
+}
+
+
+%% Fontsize for code
+\def\codefontSize{\footnotesize}
+
+\lstdefinestyle{default}{%
+	backgroundcolor=\color{backcol},%
+	commentstyle=\color{groen}\codefontSize,
+	keywordstyle=[1]\color{blaa}\bfseries\codefontSize,        % MATLAB functions bold and blaa
+	keywordstyle=[2]\color{codepurple}\codefontSize,         % MATLAB function arguments purple
+	keywordstyle=[3]\color{blaa}\underbar\codefontSize,  % User functions underlined and blue
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{roed}\codefontSize,
+	basicstyle=\ttfamily\codefontSize,
+	xrightmargin=0.05\linewidth,
+	breakatwhitespace,
+	breaklines,
+	captionpos=b,                           % sets the caption-position to top
+	mathescape=true,
+	keepspaces=true,
+	numbers=left,
+	numbersep=5pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=true,
+	tabsize=2,    
+}
+\lstset{style=default}
+\lstdefinestyle{matlab}{language=Matlab,%
+	style=default,
+	morekeywords=[1]{xlim,ylim,var,alpha,factorial,poissrnd,normpdf,normcdf},
+	morekeywords={matlab2tikz},
+	morekeywords=[2]{on, off, interp,},
+	morecomment=[l][\color{codepurple}]{...},    
+	rangeprefix=\%\%---,
+	rangesuffix=---,
+	includerangemarker=false                                                  % sets the caption-position to top                                                                                                                 %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+
+
+
+
+\endinput
