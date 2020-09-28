@@ -1,17 +1,12 @@
 \ProvidesPackage{SharedEEpreamble}
 
-%% Default font for document
-\RequirePackage{kpfonts}
-%% Code font
-\RequirePackage{inconsolata}
-% % %
+
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[danish]{babel} % NOTICE might not compile if danish language pack is not installed
 \RequirePackage{graphicx}
 \RequirePackage{import}
-
-
+\RequirePackage{epigraph}
 \ifCLASSOPTIONcompsoc
 	\RequirePackage[caption=false, font=normalsize, labelfont=sf, textfont=sf]{subfig}
 \else
@@ -109,13 +104,16 @@
 
 %% Easy SI
 \newcommand*{\fdb}{\ensuremath{f_{3db}}\;}
+\newcommand*{\wdb}{\ensuremath{\omega_{3db}}\;}
 \newcommand*{\rads}{\si{\radian\per\second}\;}
 \newcommand*{\kHz}{\;\si{\kilo\hertz}\;}
+\newcommand*{\GBWP}{\text{GBWP}}
+\newcommand*{\AOL}{\ensuremath{\text{A}_{\text{OL}}}}
 \newcommand*{\kohm}{\;\si{\kilo\ohm}\;}
 
 %% Vector
 \newcommand{\vv}[1]{\ensuremath{\vec{\mathbf{#1}}}}
-\newcommand*{\summ}[3]{\sum_{#1}^{#2}\left[ #3 \right]}
+\newcommand*{\summ}[3]{\sum\limits_{#1}^{#2}\left[ #3 \right]}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -165,7 +163,7 @@
 
 
 \newcommand\figbase[3]{
-	\begin{figure}[!htp]
+	\begin{figure}[!tbp]
 		\centering
 		#1
 		\caption{#3}
@@ -285,6 +283,11 @@
 }
 
 
-
+% %% Default font for document
+% \RequirePackage{kpfonts}
+% \RequirePackage{eulervm}
+% %% Code font
+\RequirePackage{inconsolata}
+% % %
 
 \endinput
