@@ -1,17 +1,22 @@
 \ProvidesPackage{SharedEEpreamble}
 
 
+\author{Adam Ryager Høj\\201803767}
+% \institute{Aarhus University School of Engineering}
+
+% \RequirePackage{txfonts}
+\RequirePackage{kpfonts}
+% \RequirePackage{eulervm}
+% \RequirePackage{ccfonts,eulervm}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[danish]{babel} % NOTICE might not compile if danish language pack is not installed
 \RequirePackage{graphicx}
 \RequirePackage{import}
 \RequirePackage{epigraph}
-\ifCLASSOPTIONcompsoc
-	\RequirePackage[caption=false, font=normalsize, labelfont=sf, textfont=sf]{subfig}
-\else
-	\RequirePackage[caption=false, font=footnotesize]{subfig}
-\fi
+\RequirePackage{wrapfig}
+% \RequirePackage[marginparsep=8pt,left=2.5cm,right=3cm,top=3.0cm,bottom=2.4cm]{geometry}
+
 
 %% Lets include code
 \RequirePackage{listings}
@@ -32,15 +37,20 @@
 \definecolor{brickred}{rgb}{0.8, 0.25, 0.33}
 %% Create nice tables
 \RequirePackage{booktabs}
+\RequirePackage{arydshln}
+\RequirePackage{framed}
 %% Better table spacing
 \renewcommand{\arraystretch}{1.3}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 
 %% Enables blindtext for testing formats
 \RequirePackage{blindtext}
 
 %% Acronym package
 \RequirePackage[footnote,smaller]{acronym}
-
+\RequirePackage{footnote}
+\makesavenoteenv{tabular}
+\makesavenoteenv{table}
 
 %%% TIKZ & CIRCUITIKZ %%%%
 \RequirePackage{tikz}
@@ -66,14 +76,53 @@
 %%%%%%%%%%%%%%%%%
 %% Math packages!
 %%%%%%%%%%%%%%%%%
-\RequirePackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\RequirePackage{amsmath, amsfonts, mathtools, amssymb}
 %%
 \RequirePackage{cancel}
+\RequirePackage{xfrac}
 %% \diff{}{} and \dl package!
 \RequirePackage[ISO]{diffcoeff}
 %  enables \phase{} for complex values 
 \RequirePackage{steinmetz}
 \RequirePackage{cases}
+%%% Section numbers
+% \makeatletter
+% \renewcommand{\@seccntformat}[1]{}
+% \makeatother
+% \makeatletter
+% \let\latexl@section\l@section
+% \def\l@section#1#2{\begingroup\let\numberline\@gobble\latexl@section{#1}{#2}\endgroup}
+% \makeatother
+%% Chapter setting
+% \RequirePackage{titlesec}
+% \titleformat{\chapter}[display]
+%   {\normalfont\bfseries}{}{0pt}{\Huge}
+  
+
+  \usepackage{fancyhdr}
+  \usepackage{lastpage}
+
+  
+  
+  
+   \fancypagestyle{main}{% style for the mainmatter
+	 \fancyhf{}
+	 \fancyhead[R]{\rightmark}
+	   \fancyhead[L]{\textbf{Adam Ryager Høj} - \textbf{201803767}}
+	 \fancyfoot[R]{Side~\thepage~af \pageref{LastPage}}    %%% change C to L or R as needed
+		  \fancyfoot[c]{Opgave \thesection}
+	   \fancyfoot[L]{}
+		  \renewcommand\headrulewidth{.4pt}
+		  \renewcommand\footrulewidth{.4pt}
+  }
+
+
+  \pagestyle{main}
+
+
+
+% \usepackage[style = ieee, urldate =comp]{biblatex}
+
 
 
 %%%%% Nice squareroot
@@ -81,43 +130,62 @@
 \makeatletter
 \let\oldr@@t\r@@t
 \def\r@@t#1#2{%
-	\setbox0=\hbox{$\oldr@@t#1{#2\,}$}\dimen0=\ht0
-	\advance\dimen0-0.2\ht0
-	\setbox2=\hbox{\vrule height\ht0 depth -\dimen0}%
+\setbox0=\hbox{$\oldr@@t#1{#2\,}$}\dimen0=\ht0
+\advance\dimen0-0.2\ht0
+\setbox2=\hbox{\vrule height\ht0 depth -\dimen0}%
 	{\box0\lower0.4pt\box2}}
-\LetLtxMacro{\oldsqrt}{\sqrt}
-\renewcommand*{\sqrt}[2][\ ]{\oldsqrt[#1]{#2}}
-\makeatother
+	\LetLtxMacro{\oldsqrt}{\sqrt}
+	\renewcommand*{\sqrt}[2][\ ]{\oldsqrt[#1]{#2}}
+	\makeatother
 %%%%%%%%%%%%%%%%%%%%%
 
 %%% Math operators - linked to Live Snippets...%%%
 \DeclareMathOperator\Arg{Arg}
 \DeclareMathOperator\imO{Im}
 \DeclareMathOperator\reO{Re}
+
+\DeclareSIUnit{\sqrthz}{\ensuremath{\sqrt{\text{\hertz}}}}
+\DeclareSIUnit{\voltnoise}{\volt\per\sqrthz}
+\DeclareSIUnit{\amperenoise}{\ampere\per\sqrthz}
+\DeclareSIUnit{\rads}{\radian\per\second}%% Radians per second
+
+
+
+
+
+
 \newcommand*{\re}[1]{\reO\left\{#1\right\}}
 \newcommand*{\im}[1]{\imO\left\{#1\right\}}
 \newcommand*{\lap}[1]{\mathcal{L}\left\{#1\right\}}
 \newcommand*{\ilap}[1]{\mathcal{L}^{-1}\left\{#1\right\}}
 \newcommand*{\E}[1]{\mathrm{\mathbf{e}}^{#1}}
-\newcommand*{\J}{\mathbf{j}}
-\newcommand{\Foo}{\texttt{[Foo]}}
+\newcommand*{\J}{\mathrm{\mathbf{j}}}
+\newcommand*{\Foo}{\texttt{[Foo]}}
 
+\newcommand*{\ca}[1]{\num{\approx #1}}
+
+\newcommand*{\eps}{\ensuremath{\varepsilon_0}}
 %% Easy SI
-\newcommand*{\fdb}{\ensuremath{f_{3db}}\;}
-\newcommand*{\wdb}{\ensuremath{\omega_{3db}}\;}
-\newcommand*{\rads}{\si{\radian\per\second}\;}
-\newcommand*{\kHz}{\;\si{\kilo\hertz}\;}
-\newcommand*{\GBWP}{\text{GBWP}}
-\newcommand*{\AOL}{\ensuremath{\text{A}_{\text{OL}}}}
+\newcommand*{\fdb}{\ensuremath{f_{3db}}\;} %% f_3db
+\newcommand*{\wdb}{\ensuremath{\omega_{3db}}\;} %% Omega 3db
+\newcommand*{\kHz}{\;\si{\kilo\hertz}\;}%% kilo Hertz
+\newcommand*{\GBWP}{\text{GBWP}} %% Gain bandwidth product
+\newcommand*{\AOL}{\ensuremath{\text{A}_{\text{OL}}}} %% Amplification Open loop
+\newcommand*{\ACL}{\ensuremath{\text{A}_{\text{CL}}}} %% Amplification Closed loop
 \newcommand*{\kohm}{\;\si{\kilo\ohm}\;}
-
+\newcommand*{\epsc}{\frac{1}{\eps\si{\clight}}}
+\newcommand*{\epscpi}{\frac{1}{4\pi\eps\si{\clight}}}
 %% Vector
-\newcommand{\vv}[1]{\ensuremath{\vec{\mathbf{#1}}}}
-\newcommand*{\summ}[3]{\sum\limits_{#1}^{#2}\left[ #3 \right]}
+% \renewcommand{\vec}[1]{\vec{\mathbf{#1}}}
+% \newcommand*{\vv}[1]{\ensuremath{\vec{\mathbf{#1}}}}
+\newcommand*{\summ}[3]{\sum\limits_{#1}^{#2}\left[ #3 \right]\;}
+\newcommand*{\intt}[4]{\int\limits_{#1}^{#2} #3 \dl#4\;}
+\newcommand*{\ointt}[4]{\oint\limits_{#1}^{#2} #3 \dl#4\;}
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 \RequirePackage{hyperref}
 \hypersetup{
 	colorlinks,
@@ -125,8 +193,17 @@
 	citecolor={blaa!30!black},
 	urlcolor={blaa!80!black}
 }
+
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{definition}{Definition}
+
 \RequirePackage{siunitx}
-\sisetup{range-phrase = {\text{~til~}}}
+\sisetup{
+range-phrase = {\text{~til~}},
+list-final-separator = {, },
+  per-mode=fraction,
+  fraction-function=\tfrac
+}
 \RequirePackage{lipsum}
 
 %% Emphasize equation...
@@ -162,24 +239,41 @@
 \newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
 
 
+
+
+
+
+
+
 \newcommand\figbase[3]{
-	\begin{figure}[!tbp]
+	\begin{figure}[!ht]
 		\centering
 		#1
 		\caption{#3}
 		\label{fig:#2}
 	\end{figure}
 }
-% #1 Filename
-% #2 Figure width
-% #3 Caption
-\newcommand\tikzfig[2]{
-	\figbase{\input{\dirfigs#1}}{#1}{#2}
+
+
+\newcommand\wrapfigbase[3]{
+	\begin{wrapfigure}{r}{0.5\textwidth}
+		\centering
+		#1
+		\caption{#3}
+		\label{fig:#2}
+	\end{wrapfigure}
 }
+
 % #1 Filename
 % #2 Figure width
 % #3 Caption
 \newcommand\fig[3]{
+	\figbase{\includegraphics[width=#2\linewidth]{\dirfigs#1}}{#1}{#3}
+}
+% #1 Filename
+% #2 Figure width
+% #3 Caption
+\newcommand\wfig[3]{
 	\figbase{\includegraphics[width=#2\linewidth]{\dirfigs#1}}{#1}{#3}
 }
 % #1 .tex file and label
@@ -192,19 +286,6 @@
 		\label{sch:#1}
 	\end{figure}
 }
-% #1 Filename
-% #2 Caption
-\newcommand\src[2]{
-	\begin{table}[H]
-		\centering
-		\framebox{
-			\rule{8pt}{0pt}
-			\lstinputlisting{\dirsrc#1}
-		}
-		\caption{#2}
-		\label{src:#1}
-	\end{table}
-}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % One column variants
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -212,7 +293,7 @@
 % #2 Figure width
 % #3 Caption
 \newcommand\figbaseOC[3]{
-	\begin{figure*}
+	\begin{figure*}[tbp]
 		\centering
 		#1
 		\caption{#3}
@@ -224,17 +305,6 @@
 % #3 Caption
 \newcommand\figOC[3]{
 	\figbaseOC{\includegraphics[width=#2\linewidth]{\dirfigs#1}}{#1}{#3}
-}
-% #1 Filename
-% #2 Caption
-\newcommand\tabOC[3]{
-	\begin{table*}[!ht]
-		\caption{#2}
-		\label{tab:#3}
-		\renewcommand{\arraystretch}{1.3}
-		\centering
-		#1
-	\end{table*}
 }
 \newcommand\includecode[4][src]{
 	\lstinputlisting[
@@ -268,7 +338,7 @@
 	showspaces=false,
 	showstringspaces=false,
 	showtabs=true,
-	tabsize=2,    
+	tabsize=2,
 }
 \lstset{style=default}
 \lstdefinestyle{matlab}{language=Matlab,%
@@ -276,18 +346,50 @@
 	morekeywords=[1]{xlim,ylim,var,alpha,factorial,poissrnd,normpdf,normcdf},
 	morekeywords={matlab2tikz},
 	morekeywords=[2]{on, off, interp,},
-	morecomment=[l][\color{codepurple}]{...},    
+	morecomment=[l][\color{codepurple}]{...},
 	rangeprefix=\%\%---,
 	rangesuffix=---,
 	includerangemarker=false                                                  % sets the caption-position to top                                                                                                                 %emph=[2]{word1,word2}, emphstyle=[2]{style},    
 }
 
 
-% %% Default font for document
-% \RequirePackage{kpfonts}
-% \RequirePackage{eulervm}
-% %% Code font
-\RequirePackage{inconsolata}
-% % %
+\newcommand*\data[4]{%
+	#1 & #2 & #3 & #4 \\}
+\newcommand*\objekt[1]{%
+\multicolumn{4}{c}{\textbf{#1}}\\\midrule
+\textrm{Symbol} & {Værdi} & {Enhed} & Beskrivelse \\
+			\midrule
+}
+\newcommand*\datalistehead[2]{%
+	\renewcommand{\arraystretch}{1.6}
+	\begin{table*}[htbp]
+		\centering
+		\caption{Dataliste for #1}
+		\label{tab:dataliste_#2}
+		\begin{tabular}{LSsl}\toprule
+			}
+			\newenvironment{dataliste}[2]{\datalistehead{#1}{#2}}%
+			{%
+			\bottomrule
+		\end{tabular}
+	\end{table*}
+	\renewcommand{\arraystretch}{1.6}
+}
+
+
+
+
+
+% \RequirePackage{inconsolata}
+
+% \RequirePackage{courier}
+% \renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
+% \RequirePackage[italic]{mathastext}
+% \MTnonlettersobeymathxx     % math alphabets will act on (, ), [, ], etc...
+% \MTexplicitbracesobeymathxx % math alphabets will act on \{ and \}
+% \MTfamily {\ttdefault}      % we will declare a math version using tt font
+% \Mathastext [typewriter]    % the math version is called typewriter
+
+
 
 \endinput

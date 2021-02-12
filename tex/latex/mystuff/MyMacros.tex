@@ -1,0 +1,38 @@
+\usepackage{amsmath, amsfonts, mathtools, amssymb}
+%%
+\usepackage{cancel}
+\usepackage{siunitx}
+\usepackage{xfrac}
+%% \diff{}{} and \dl package!
+\usepackage[ISO]{diffcoeff}
+%  enables \phase{} for complex values 
+\usepackage{steinmetz}
+\usepackage{cases}
+
+
+\newcommand{\re}[1]{\reO\left\{#1\right\}}
+\newcommand{\im}[1]{\imO\left\{#1\right\}}
+\newcommand{\lap}[1]{\mathcal{L}\left\{#1\right\}}
+\newcommand{\ilap}[1]{\mathcal{L}^{-1}\left\{#1\right\}}
+\newcommand{\E}[1]{\mathrm{\mathbf{e}}^{#1}}
+\newcommand{\J}{\mathrm{\mathbf{j}}}
+\newcommand{\Foo}{\texttt{[Foo]}}
+
+\newcommand{\ca}[1]{\num{\approx #1}}
+
+\newcommand{\eps}{\ensuremath{\varepsilon_0}}
+%% Easy SI
+\newcommand{\fdb}{\ensuremath{f_{3db}}\;} %% f_3db
+\newcommand{\wdb}{\ensuremath{\omega_{3db}}\;} %% Omega 3db
+\newcommand{\rads}{\si{\radian\per\second}\;}%% Radians per second
+\newcommand{\kHz}{\;\si{\kilo\hertz}\;}%% kilo Hertz
+\newcommand{\GBWP}{\text{GBWP}} %% Gain bandwidth product
+\newcommand{\AOL}{\ensuremath{\text{A}_{\text{OL}}}} %% Amplification Open loop
+\newcommand{\ADC}{\ensuremath{\text{A}_{\text{DC}}}} %% Amplification DC
+\newcommand{\ACL}{\ensuremath{\text{A}_{\text{CL}}}} %% Amplification Closed loop
+\newcommand{\kohm}{\;\si{\kilo\ohm}\;}
+%% Vector
+\newcommand{\vv}[1]{\ensuremath{\vec{\mathbf{#1}}}}
+\newcommand{\summ}[3]{\sum\limits_{#1}^{#2}\left[ #3 \right]\;}
+\newcommand{\intt}[4]{\int\limits_{#1}^{#2} #3 \dl#4\;}
+\newcommand{\ointt}[4]{\oint\limits_{#1}^{#2} #3 \dl#4\;}

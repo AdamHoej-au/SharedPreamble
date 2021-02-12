@@ -1,0 +1,22 @@
+Folder PATH listing for volume Windows
+Volume serial number is 28DB-2F99
+C:.
+|   Content.txt
+|   
+\---tex
+    \---latex
+        +---mystuff
+        |       lstautodedent.sty
+        |       MyMacros.tex
+        |       SharedEEpreamble.sty
+        |       
+        +---svjour
+        |       spr-chicago.bst
+        |       svglov3.clo
+        |       svjour3.cls
+        |       
+        \---svjour_edit
+                spr-chicago_edit.bst
+                svglov3_edit.clo
+                svjour3_edit.cls
+                
