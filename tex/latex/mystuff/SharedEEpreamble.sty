@@ -1,13 +1,9 @@
 \ProvidesPackage{SharedEEpreamble}
 
-
 \author{Adam Ryager Høj\\201803767}
 % \institute{Aarhus University School of Engineering}
 
-% \RequirePackage{txfonts}
 \RequirePackage{kpfonts}
-% \RequirePackage{eulervm}
-% \RequirePackage{ccfonts,eulervm}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[danish]{babel} % NOTICE might not compile if danish language pack is not installed
@@ -15,8 +11,9 @@
 \RequirePackage{import}
 \RequirePackage{epigraph}
 \RequirePackage{wrapfig}
+\RequirePackage{imakeidx}
+\makeindex[title=Indeks, options= -s example_style.ist, columns = 2,intoc]
 % \RequirePackage[marginparsep=8pt,left=2.5cm,right=3cm,top=3.0cm,bottom=2.4cm]{geometry}
-
 
 %% Lets include code
 \RequirePackage{listings}
@@ -25,6 +22,7 @@
 %% Colors
 \RequirePackage{color}
 \RequirePackage{xcolor}
+\definecolor{bg}{rgb}{.95,.95,.95} % background color
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -39,9 +37,6 @@
 \RequirePackage{booktabs}
 \RequirePackage{arydshln}
 \RequirePackage{framed}
-%% Better table spacing
-\renewcommand{\arraystretch}{1.3}
-\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 
 %% Enables blindtext for testing formats
 \RequirePackage{blindtext}
@@ -77,51 +72,32 @@
 %% Math packages!
 %%%%%%%%%%%%%%%%%
 \RequirePackage{amsmath, amsfonts, mathtools, amssymb}
+\RequirePackage{physics}
 %%
 \RequirePackage{cancel}
 \RequirePackage{xfrac}
-%% \diff{}{} and \dl package!
-\RequirePackage[ISO]{diffcoeff}
-%  enables \phase{} for complex values 
 \RequirePackage{steinmetz}
 \RequirePackage{cases}
-%%% Section numbers
-% \makeatletter
-% \renewcommand{\@seccntformat}[1]{}
-% \makeatother
-% \makeatletter
-% \let\latexl@section\l@section
-% \def\l@section#1#2{\begingroup\let\numberline\@gobble\latexl@section{#1}{#2}\endgroup}
-% \makeatother
-%% Chapter setting
-% \RequirePackage{titlesec}
-% \titleformat{\chapter}[display]
-%   {\normalfont\bfseries}{}{0pt}{\Huge}
-  
-
   \usepackage{fancyhdr}
   \usepackage{lastpage}
 
   
   
   
-   \fancypagestyle{main}{% style for the mainmatter
-	 \fancyhf{}
-	 \fancyhead[R]{\rightmark}
-	   \fancyhead[L]{\textbf{Adam Ryager Høj} - \textbf{201803767}}
-	 \fancyfoot[R]{Side~\thepage~af \pageref{LastPage}}    %%% change C to L or R as needed
-		  \fancyfoot[c]{Opgave \thesection}
-	   \fancyfoot[L]{}
-		  \renewcommand\headrulewidth{.4pt}
-		  \renewcommand\footrulewidth{.4pt}
-  }
+%    \fancypagestyle{main}{% style for the mainmatter
+% 	 \fancyhf{}
+% 	 \fancyhead[R]{\rightmark}
+% 	%    \fancyhead[L]{\textbf{Adam Ryager Høj} - \textbf{201803767}}
+% 	 \fancyfoot[R]{Side~\thepage~af \pageref{LastPage}}    %%% change C to L or R as needed
+% 		%   \fancyfoot[c]{Opgave \thesection}
+% 	   \fancyfoot[L]{}
+% 		  \renewcommand\headrulewidth{.4pt}
+% 		  \renewcommand\footrulewidth{.4pt}
+%   }
 
 
-  \pagestyle{main}
+%   \pagestyle{main}
 
-
-
-% \usepackage[style = ieee, urldate =comp]{biblatex}
 
 
 
@@ -152,13 +128,19 @@
 
 
 
+%% Better table spacing
+\renewcommand{\arraystretch}{1.3}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 
 
 \newcommand*{\re}[1]{\reO\left\{#1\right\}}
 \newcommand*{\im}[1]{\imO\left\{#1\right\}}
 \newcommand*{\lap}[1]{\mathcal{L}\left\{#1\right\}}
+\newcommand*{\ztrans}[1]{\mathcal{Z}\left\{#1\right\}}
 \newcommand*{\ilap}[1]{\mathcal{L}^{-1}\left\{#1\right\}}
+\newcommand*{\iztran}[1]{\mathcal{Z}^{-1}\left\{#1\right\}}
 \newcommand*{\E}[1]{\mathrm{\mathbf{e}}^{#1}}
+\newcommand*{\z}[1]{z^{#1}}
 \newcommand*{\J}{\mathrm{\mathbf{j}}}
 \newcommand*{\Foo}{\texttt{[Foo]}}
 
@@ -193,9 +175,6 @@
 	citecolor={blaa!30!black},
 	urlcolor={blaa!80!black}
 }
-
-% \newtheorem{theorem}{Theorem}
-% \newtheorem{definition}{Definition}
 
 \RequirePackage{siunitx}
 \sisetup{
@@ -270,56 +249,41 @@ list-final-separator = {, },
 \newcommand\fig[3]{
 	\figbase{\includegraphics[width=#2\linewidth]{\dirfigs#1}}{#1}{#3}
 }
-% #1 Filename
-% #2 Figure width
-% #3 Caption
-\newcommand\wfig[3]{
-	\figbase{\includegraphics[width=#2\linewidth]{\dirfigs#1}}{#1}{#3}
-}
-% #1 .tex file and label
-% #2 Caption
-\newcommand\schem[2]{
-	\begin{figure}
-		\centering
-		\input{\dirfigs#1}
-		\caption{#2}
-		\label{sch:#1}
-	\end{figure}
-}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % One column variants
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % #1 Filename
 % #2 Figure width
 % #3 Caption
-\newcommand\figbaseOC[3]{
-	\begin{figure*}[tbp]
-		\centering
-		#1
-		\caption{#3}
-		\label{fig:#2}
-	\end{figure*}
-}
-% #1 Filename
-% #2 Figure width
-% #3 Caption
-\newcommand\figOC[3]{
-	\figbaseOC{\includegraphics[width=#2\linewidth]{\dirfigs#1}}{#1}{#3}
-}
+
+
 \newcommand\includecode[4][src]{
-	\lstinputlisting[
-		label={#1:#2},
-		caption={#3},
-		#4,
-	]{\dirsrc#2}
+	% \marginpar{
+		% \vskip 8pt
+		% \captionof{lstlisting}{#3}
+		% \label{#1:#2}
+	% }
+	\begin{mdframed}[style = code_box]%
+		\lstinputlisting[
+			label={#1:#2},
+			caption={#3},
+			xrightmargin=0.05\linewidth,
+			breakatwhitespace,
+			breaklines,
+			#4,
+		]{\dirsrc#2}
+	\end{mdframed}
 }
 
 
 %% Fontsize for code
-\def\codefontSize{\footnotesize}
+\usepackage{lstautodedent}
 
+\def\codefontSize{\footnotesize}
+\definecolor{bg}{rgb}{.95,.95,.95} % background color
 \lstdefinestyle{default}{%
-	backgroundcolor=\color{backcol},%
+	backgroundcolor=\color{bg},%
 	commentstyle=\color{groen}\codefontSize,
 	keywordstyle=[1]\color{blaa}\bfseries\codefontSize,        % MATLAB functions bold and blaa
 	keywordstyle=[2]\color{codepurple}\codefontSize,         % MATLAB function arguments purple
@@ -330,26 +294,27 @@ list-final-separator = {, },
 	xrightmargin=0.05\linewidth,
 	breakatwhitespace,
 	breaklines,
-	captionpos=b,                           % sets the caption-position to top
+	captionpos=b,                           %
 	mathescape=true,
 	keepspaces=true,
 	numbers=left,
-	numbersep=5pt,
 	showspaces=false,
 	showstringspaces=false,
 	showtabs=true,
-	tabsize=2,
+	tabsize=1,
 }
-\lstset{style=default}
-\lstdefinestyle{matlab}{language=Matlab,%
+
+\lstdefinestyle{matlab}{language=MATLAB,%
 	style=default,
-	morekeywords=[1]{xlim,ylim,var,alpha,factorial,poissrnd,normpdf,normcdf},
-	morekeywords={matlab2tikz},
-	morekeywords=[2]{on, off, interp,},
-	morecomment=[l][\color{codepurple}]{...},
+	numbersep=12pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=true,
+	tabsize=2,    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
 	rangeprefix=\%\%---,
 	rangesuffix=---,
-	includerangemarker=false                                                  % sets the caption-position to top                                                                                                                 %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+	includerangemarker=false,
+	autodedent
 }
 
 
@@ -380,7 +345,7 @@ list-final-separator = {, },
 
 
 
-% \RequirePackage{inconsolata}
+\RequirePackage{inconsolata}
 
 % \RequirePackage{courier}
 % \renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
@@ -389,7 +354,7 @@ list-final-separator = {, },
 % \MTexplicitbracesobeymathxx % math alphabets will act on \{ and \}
 % \MTfamily {\ttdefault}      % we will declare a math version using tt font
 % \Mathastext [typewriter]    % the math version is called typewriter
-
+\usepackage{xurl}	% to make urls break lines
 
 
 \endinput
