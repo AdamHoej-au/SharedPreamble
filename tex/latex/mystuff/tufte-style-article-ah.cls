@@ -133,14 +133,14 @@
 ]{caption}						% for caption formatting
 \RequirePackage[T1]{fontenc}	% font encoding
 % \RequirePackage[osf]{mathpazo}	% main font
-\RequirePackage{kpfonts}	% main font
-\RequirePackage{gillius}		% sans font
-\if@sans
-	\RequirePackage[			% font for full sans document
-		osf,
-		default
-	]{sourcesanspro}
-\fi
+% \RequirePackage{kpfonts}	% main font
+% \RequirePackage{gillius}		% sans font
+% \if@sans
+	% \RequirePackage[			% font for full sans document
+		% osf,
+		% default
+	% ]{sourcesanspro}
+% \fi
 % \RequirePackage[
 	% defaultmono,
 	% scale=.86
@@ -156,10 +156,10 @@
 	final,
 	tracking,
 ]{microtype}					% microtypography: fine-tuning in text
-\RequirePackage{amsfonts}		% math fonts
-\RequirePackage{amsmath}		% math stuff
-\RequirePackage{mathtools}		% amsmath extension
-\RequirePackage{physics}		% handy shortcuts for physics
+% \RequirePackage{amsfonts}		% math fonts
+% \RequirePackage{amsmath}		% math stuff
+% \RequirePackage{mathtools}		% amsmath extension
+% \RequirePackage{physics}		% handy shortcuts for physics
 % \RequirePackage{minted} 		% for code display
 \RequirePackage{xcolor}			% colorz
 \RequirePackage[framemethod=TikZ]{mdframed} % for custom code boxes
@@ -456,7 +456,7 @@
 }
 
 %	toc depth
-\AtBeginDocument{\setcounter{tocdepth}{2}}
+\AtBeginDocument{\setcounter{tocdepth}{3}}
 
 %	T I G H T  L I S T S
 %

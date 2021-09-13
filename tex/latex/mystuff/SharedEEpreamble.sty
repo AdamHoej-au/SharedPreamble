@@ -1,54 +1,40 @@
 \ProvidesPackage{SharedEEpreamble}
 
 \author{Adam Ryager Høj\\201803767}
-% \institute{Aarhus University School of Engineering}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \RequirePackage{kpfonts}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
-\RequirePackage[danish]{babel} % NOTICE might not compile if danish language pack is not installed
+\RequirePackage[danish]{babel}
 \RequirePackage{graphicx}
 \RequirePackage{import}
 \RequirePackage{epigraph}
 \RequirePackage{wrapfig}
 \RequirePackage{imakeidx}
-\makeindex[title=Indeks, options= -s example_style.ist, columns = 2,intoc]
-% \RequirePackage[marginparsep=8pt,left=2.5cm,right=3cm,top=3.0cm,bottom=2.4cm]{geometry}
-
-%% Lets include code
+\RequirePackage{inconsolata}
+% Code include
 \RequirePackage{listings}
 \RequirePackage{lstautodedent}
-
-%% Colors
-\RequirePackage{color}
-\RequirePackage{xcolor}
-\definecolor{bg}{rgb}{.95,.95,.95} % background color
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcol}{RGB}{205,217,232}
-\definecolor{aublue}{RGB}{3,66,142}
-\definecolor{aubluelight}{RGB}{129,160,198}
-\definecolor{blaa}{RGB}{1,99,172}   %Faber Castell Blå
-\definecolor{roed}{RGB}{179,41,54}  %Faber Castell Rød
-\definecolor{groen}{RGB}{25,90,34}  %Faber Castell Grøn
-\definecolor{brickred}{rgb}{0.8, 0.25, 0.33}
 %% Create nice tables
 \RequirePackage{booktabs}
 \RequirePackage{arydshln}
 \RequirePackage{framed}
-
 %% Enables blindtext for testing formats
 \RequirePackage{blindtext}
-
-%% Acronym package
-\RequirePackage[footnote,smaller]{acronym}
-\RequirePackage{footnote}
-\makesavenoteenv{tabular}
-\makesavenoteenv{table}
-
+\RequirePackage{lipsum}
+%% Colors
+\RequirePackage{color}
+\RequirePackage{xcolor}
 %%% TIKZ & CIRCUITIKZ %%%%
 \RequirePackage{tikz}
+\RequirePackage[framemethod=TikZ]{mdframed} % for custom code boxes
 \usetikzlibrary{arrows}
 \RequirePackage[%
 	siunitx,
@@ -61,7 +47,7 @@
 
 %% Enable some tikz parameters
 \RequirePackage{pgfplots}
-\pgfplotsset{compat=1.16}
+
 
 %% Enable floats
 \RequirePackage{float}
@@ -72,17 +58,67 @@
 %% Math packages!
 %%%%%%%%%%%%%%%%%
 \RequirePackage{amsmath, amsfonts, mathtools, amssymb}
+\RequirePackage{diffcoeff}
 \RequirePackage{physics}
 %%
 \RequirePackage{cancel}
 \RequirePackage{xfrac}
 \RequirePackage{steinmetz}
 \RequirePackage{cases}
-  \usepackage{fancyhdr}
-  \usepackage{lastpage}
+\RequirePackage{fancyhdr}
+\RequirePackage{lastpage}
+\RequirePackage{letltxmacro}
+  
+\RequirePackage{array}
 
-  
-  
+\RequirePackage{siunitx}
+\sisetup{
+range-phrase = {\text{~til~}},
+list-final-separator = {, },
+  per-mode=fraction,
+  fraction-function=\tfrac
+}
+
+
+
+\RequirePackage{hyperref}
+\hypersetup{
+	colorlinks,
+	linkcolor={roed!20!black},
+	citecolor={blaa!30!black},
+	urlcolor={blaa!80!black}
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeindex[title=Indeks, options= -s example_style.ist, columns = 2,intoc]
+
+
+
+
+\definecolor{bg}{rgb}{.95,.95,.95} % background color
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcol}{RGB}{205,217,232}
+\definecolor{aublue}{RGB}{3,66,142}
+\definecolor{aubluelight}{RGB}{129,160,198}
+\definecolor{blaa}{RGB}{1,99,172}   %Faber Castell Blå
+\definecolor{roed}{RGB}{179,41,54}  %Faber Castell Rød
+\definecolor{groen}{RGB}{25,90,34}  %Faber Castell Grøn
+\definecolor{brickred}{rgb}{0.8, 0.25, 0.33}
+
+
+
+
+
+\pgfplotsset{compat=1.16}
   
 %    \fancypagestyle{main}{% style for the mainmatter
 % 	 \fancyhf{}
@@ -102,7 +138,7 @@
 
 
 %%%%% Nice squareroot
-\RequirePackage{letltxmacro}
+
 \makeatletter
 \let\oldr@@t\r@@t
 \def\r@@t#1#2{%
@@ -165,25 +201,13 @@
 \newcommand*{\ointt}[4]{\oint\limits_{#1}^{#2} #3 \dl#4\;}
 
 
-
+% \RequirePackage[
+% 	super,
+% 	square
+% ]{natbib}	
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\RequirePackage{hyperref}
-\hypersetup{
-	colorlinks,
-	linkcolor={roed!20!black},
-	citecolor={blaa!30!black},
-	urlcolor={blaa!80!black}
-}
 
-\RequirePackage{siunitx}
-\sisetup{
-range-phrase = {\text{~til~}},
-list-final-separator = {, },
-  per-mode=fraction,
-  fraction-function=\tfrac
-}
-\RequirePackage{lipsum}
 
 %% Emphasize equation...
 \newcommand*{\boxedcolor}{roed}
@@ -214,7 +238,6 @@ list-final-separator = {, },
 \newcommand\Coderef[2][src]{Source code listing \ref{#1:#2}}
 \newcommand\coderefsimple[2][src]{\ref{#1:#2}}
 
-\RequirePackage{array}
 \newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
 
 
@@ -249,14 +272,16 @@ list-final-separator = {, },
 \newcommand\fig[3]{
 	\figbase{\includegraphics[width=#2\linewidth]{\dirfigs#1}}{#1}{#3}
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% One column variants
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% #1 Filename
-% #2 Figure width
-% #3 Caption
-
+\newenvironment{eqdisp}[1]
+  {\mdfsetup{
+    frametitle={\colorbox{white}{\space#1\space}},
+    innertopmargin=10pt,
+    frametitleaboveskip=-\ht\strutbox,
+    frametitlealignment=\center
+    }
+  \begin{mdframed}%
+  }
+  {\end{mdframed}}
 
 \newcommand\includecode[4][src]{
 	% \marginpar{
@@ -344,8 +369,6 @@ list-final-separator = {, },
 
 
 
-
-\RequirePackage{inconsolata}
 
 % \RequirePackage{courier}
 % \renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
